@@ -1,0 +1,20 @@
+<% include partials/header.ejs %>
+<div class="ui raised very padded text container segment">
+        <h3 class="ui block blue header">Edit Blog Post</h3>
+        <form action="/blogs/<%= editBlog._id %>?_method=PUT" method="POST" class="ui form">
+            <div class="field">
+                <label for="">Title</label>
+                <input type="text" name="blog[title]" value="<%= editBlog.title %>">
+            </div>
+            <div class="field">
+                <label for="">Image</label>
+                <input type="text" name="blog[image]" value="<%= editBlog.image %>">
+            </div>
+            <div class="field">
+                <label for="">Description</label>
+                <input type="text" name="blog[body]" value="<%= editBlog.body %>">
+            </div>
+            <button type="submit" class="ui blue basic button">Submit</button>
+        </form>
+    </div>
+<% include partials/footer.ejs %>

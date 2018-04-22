@@ -1,0 +1,16 @@
+<% include partials/header %>
+
+<div class="ui text padded segment container">
+    <% blogs.forEach(function(blog){ %>
+            <h2><%= blog.title %></h2>
+            <div class="ui centered">
+                <img class = "ui large image rounded img-responsive" src="<%= blog.image %>">
+                <div class="caption"><%= blog.body.substring(0,50) %> ...</div>
+                <a href="blogs/<%= blog._id %>"> Read more </a>
+            </div>
+            
+    <% })%>
+</div>
+
+
+<% include partials/footer %>
