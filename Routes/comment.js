@@ -4,11 +4,11 @@ var router = express.Router();
 var Comment = require('../models/Comment'),
     Blog = require('../models/Blog');
     
-router.get("/blogs/:id/comment", function (req, res) {
+router.get("/blogs/:id/comment",isLoggedin, function (req, res) {
     res.render("AddComment", { blogId: req.params.id });
 })
 
-router.put("/blogs/:id/comment", function (req, res) {
+router.put("/blogs/:id/comment",isLoggedin, function (req, res) {
     var comment = req.body.comment;
     var commentCreated;
 
@@ -27,5 +27,11 @@ router.put("/blogs/:id/comment", function (req, res) {
         }
     })
 })
+function isLoggedin(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    }
 
+    res.redirect("/login");
+}
 module.exports = router;

@@ -23,5 +23,13 @@
             <a class="item">
                 Friends
             </a>
+                <% if(!currentUser) { %>
+                    <a class="item" href="/login">Login</a>
+                    <a class="item" href="/signup">SignUp</a>
+                <% }else{ %>
+                    <a class="item" href="/logout">Logout</a>
+
+                <% } %> 
+
         </div>
     </div>

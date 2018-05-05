@@ -1,0 +1,16 @@
+<% include partials/header.ejs %>
+
+<div class="ui raised very padded text container segment">
+    <h3 class="ui block blue header">New User Sign up</h3>
+    <form action="/register" method="POST" class="ui form">
+        <div class="field">
+            <label for="">UserName</label>
+            <input type="text" name="username" placeholder="User name">
+        </div>
+        <div class="field">
+            <label for="">Password</label>
+            <input type="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="ui blue basic button">Submit</button>
+    </form>
+</div>
