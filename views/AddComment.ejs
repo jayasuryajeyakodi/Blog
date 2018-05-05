@@ -1,0 +1,16 @@
+<% include partials/header.ejs %>
+<div class="ui raised very padded text container segment">
+        <h3 class="ui block blue header">Add Comment</h3>
+        <form action="/blogs/<%= blogId %>/comment?_method=PUT" method="POST" class="ui form">
+            <div class="field">
+                <label for="">Username</label>
+                <input type="text" name="comment[username]" placeholder="hello">
+            </div>
+            <div class="field">
+                <label for="">Description</label>
+                <input type="text" name="comment[description]" placeholder="hello">
+            </div>
+            <button type="submit" class="ui blue basic button">Submit</button>
+        </form>
+    </div>
+<% include partials/footer.ejs %>

@@ -1,19 +1,29 @@
 <% include partials/header %>
 
-<div class="ui raised very padder text container segment">
-    <h3 class="ui block blue header">
-        <%= foundBlog.title %>
-    </h3>
-    <img src="<%= foundBlog.image %>" alt="">
-    <div>
-        <%= foundBlog.body %>
-    </div>
-    <button class="ui orange basic button">
+    <div class="ui raised very padder text container segment">
+        <h3 class="ui block blue header">
+            <%= foundBlog.title %>
+        </h3>
+        <img class="ui large image rounded" src="<%= foundBlog.image %>" alt="">
+        <div>
+            <%= foundBlog.body %>
+        </div>
+        <button class="ui orange basic button">
             <a href="/blogs/<%= foundBlog._id %>/edit">Edit</a>
-    </button>
-    <form id="deleteForm" action="/blogs/<%= foundBlog._id %>?_method=DELETE" method="POST">
-        <button type="submit" class="ui red basic button">Delete</button>
-    </form>
-</div>
+        </button>
+        <form id="deleteForm" action="/blogs/<%= foundBlog._id %>?_method=DELETE" method="POST">
+            <button type="submit" class="ui red basic button">Delete</button>
+        </form>
+        <button class="ui blue basic button">
+            <a href="/blogs/<%= foundBlog._id %>/comment">Add comment</a>
+        </button>
+        <% foundBlog.comments.forEach(function(element){ %>
+            <div class="ui text segment gray">
+                <p> <%= element.username %> </p>
+                <p> <%= element.description %> </p>
+            </div>
 
-<% include partials/footer %>
+        <% }) %>
+    </div>
+
+    <% include partials/footer %>
