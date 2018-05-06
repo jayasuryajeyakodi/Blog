@@ -118,7 +118,7 @@ function isLoggedin(req, res, next){
 }
 
 //Listen on the port and start the server
-app.listen(7777, function (err) {
+app.listen(process.env.PORT, function (err) {
     console.log("Server is listening damn!");
     console.log("error if any" + err);
 })
