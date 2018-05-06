@@ -23,7 +23,14 @@ var mainRoute = require('./Routes/main'),
 // TODO: learn data assocations and passport.js in depth
 
 
-mongoose.connect("mongodb://localhost:27017/blog");
+mongoose.connect("mongodb://jayasurya.documents.azure.com:10255/blog?ssl=true",{
+    auth:{
+        user:"jayasurya",
+        password:"AQ9JHPwV8Hp6UJanhsX3rTns8J6J7DVPIBO31nopSb6W42VhO8JHBLlWYnG5kXU00dEb6COXkBLSjMzYYucy1g=="
+    }
+}, function(err){
+
+});
 
 app.set("view engine", "ejs");
 // exposing static assets via middleware
