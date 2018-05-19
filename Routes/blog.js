@@ -3,8 +3,10 @@ var express = require('express');
 var router = express.Router();
 var Blog = require('../models/Blog');
 
-router.get("/blogs", function (req, res) {
-    Blog.find({}, function (err, blog) {
+router.get("/blogs", isLoggedin,function (req, res) {
+    Blog.find({
+        "author.id":req.user._id
+    }, function (err, blog) {
         res.render("index", { blogs: blog });
     })
 });
@@ -60,7 +62,7 @@ router.post("/blogs/new",isLoggedin, function (req, res) {
     console.log("new blog is "+JSON.stringify(req.user))
     inputBlog.author = {
         id : req.user,
-        username : req.user
+        username : "jj"
     };
     Blog.create(inputBlog);
     res.redirect("/blogs");
