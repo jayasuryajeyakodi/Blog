@@ -1,13 +1,14 @@
+
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     mongoose = require('mongoose'),
+    User = require('./models/User'),
     Comment = require('./models/Comment'),
     Blog = require('./models/Blog'),
     passport = require('passport'),
-    localStrategy = require('passport-local'),
-    User = require('./models/User');
+    localStrategy = require('passport-local');
 
 
 
@@ -28,8 +29,10 @@ mongoose.connect("mongodb://jayasurya.documents.azure.com:10255/blog?ssl=true",{
         user:"jayasurya",
         password:"AQ9JHPwV8Hp6UJanhsX3rTns8J6J7DVPIBO31nopSb6W42VhO8JHBLlWYnG5kXU00dEb6COXkBLSjMzYYucy1g=="
     }
-}, function(err){
-
+}, function(err, db){
+    if(err){
+        console.log("cannot connect to mongo db"+err)
+    }
 });
 
 app.set("view engine", "ejs");
@@ -118,7 +121,7 @@ function isLoggedin(req, res, next){
 }
 
 //Listen on the port and start the server
-app.listen(process.env.PORT, function (err) {
+app.listen(process.env.PORT | 7777, function (err) {
     console.log("Server is listening damn!");
     console.log("error if any" + err);
 })
