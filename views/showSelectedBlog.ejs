@@ -19,10 +19,18 @@
         <button class="ui blue basic button">
             <a href="/blogs/<%= foundBlog._id %>/comment">Add comment</a>
         </button>
-        <% foundBlog.comments.forEach(function(element){ %>
+        <% foundBlog.comments.forEach(function(comment){ %>
             <div class="ui text segment gray">
-                <p> <%= element.username %> </p>
-                <p> <%= element.description %> </p>
+                <p> <%= comment.username %> </p>
+                <p> <%= comment.description %> </p>
+                <% if(currentUser && comment.user.equals(currentUser._id)){ %>
+                    <button class="ui orange basic button">
+                        <a href="/blogs/<%= foundBlog._id %>/comment/<%= comment._id %>/edit">Edit</a>
+                    </button>
+                    <form id="deleteComment" action="/blogs/<%= foundBlog._id %>/comment/<%= comment._id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="ui red basic button">Delete</button>
+                    </form>
+                <% } %>
             </div>
 
         <% }) %>
