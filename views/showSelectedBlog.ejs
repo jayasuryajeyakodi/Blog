@@ -8,12 +8,14 @@
         <div>
             <%= foundBlog.body %>
         </div>
-        <button class="ui orange basic button">
-            <a href="/blogs/<%= foundBlog._id %>/edit">Edit</a>
-        </button>
-        <form id="deleteForm" action="/blogs/<%= foundBlog._id %>?_method=DELETE" method="POST">
-            <button type="submit" class="ui red basic button">Delete</button>
-        </form>
+        <% if(currentUser && foundBlog.author.id.equals(currentUser._id)){ %>
+            <button class="ui orange basic button">
+                <a href="/blogs/<%= foundBlog._id %>/edit">Edit</a>
+            </button>
+            <form id="deleteForm" action="/blogs/<%= foundBlog._id %>?_method=DELETE" method="POST">
+                <button type="submit" class="ui red basic button">Delete</button>
+            </form>
+        <% } %>
         <button class="ui blue basic button">
             <a href="/blogs/<%= foundBlog._id %>/comment">Add comment</a>
         </button>

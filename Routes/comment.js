@@ -10,6 +10,7 @@ router.get("/blogs/:id/comment",isLoggedin, function (req, res) {
 
 router.put("/blogs/:id/comment",isLoggedin, function (req, res) {
     var comment = req.body.comment;
+    comment.user= req.user._id;
     comment.username = req.user.username;
 
     Blog.findById(req.params.id, function (err, blog) {

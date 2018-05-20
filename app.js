@@ -59,6 +59,7 @@ passport.deserializeUser(User.deserializeUser());
 // Please sanitise the input before proceeding into logic, there
 // are modules that does that express-sanitize
 
+// to pass data to all the templates, use this method
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
     next();

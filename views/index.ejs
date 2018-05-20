@@ -7,6 +7,7 @@
                 <img class = "ui large image rounded img-responsive" src="<%= blog.image %>">
                 <div class="caption"><%= blog.body.substring(0,50) %> ...</div>
                 <a href="blogs/<%= blog._id %>"> Read more </a>
+                <p> Submitted by <%= blog.author.username %></p>
             </div>
             
     <% })%>

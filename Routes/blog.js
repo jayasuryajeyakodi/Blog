@@ -5,7 +5,6 @@ var Blog = require('../models/Blog');
 
 router.get("/blogs", isLoggedin,function (req, res) {
     Blog.find({
-        "author.id":req.user._id
     }, function (err, blog) {
         res.render("index", { blogs: blog });
     })
@@ -28,13 +27,13 @@ router.get("/blogs/:id", function (req, res) {
     })
 });
 
-router.get("/blogs/:id/edit",isLoggedin, function (req, res) {
+router.get("/blogs/:id/edit",hasPermission, function (req, res) {
     Blog.findById(req.params.id, function (err, blog) {
         res.render("blogEdit", { editBlog: blog });
     })
 })
 
-router.delete("/blogs/:id", isLoggedin,function (req, res) {
+router.delete("/blogs/:id", hasPermission,function (req, res) {
     Blog.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
             console.log("Error deleting");
@@ -44,7 +43,7 @@ router.delete("/blogs/:id", isLoggedin,function (req, res) {
     })
 })
 
-router.put("/blogs/:id",isLoggedin, function (req, res) {
+router.put("/blogs/:id",hasPermission, function (req, res) {
     var id = req.params.id;
     Blog.findByIdAndUpdate(id, req.body.blog, function (err, data) {
         if (err) {
@@ -62,7 +61,7 @@ router.post("/blogs/new",isLoggedin, function (req, res) {
     console.log("new blog is "+JSON.stringify(req.user))
     inputBlog.author = {
         id : req.user,
-        username : "jj"
+        username : req.user.username
     };
     Blog.create(inputBlog);
     res.redirect("/blogs");
@@ -74,5 +73,18 @@ function isLoggedin(req, res, next){
     }
 
     res.redirect("/login");
+}
+function hasPermission(req, res, next){
+    if(req.isAuthenticated()){
+        Blog.findById(req.params.id, function (err, blog) {
+            if(blog.author.id.equals(req.user._id)){
+                return next();
+            }
+            res.redirect("back");
+        })
+    }
+    else{
+        res.redirect("/login");
+    }
 }
 module.exports = router;
