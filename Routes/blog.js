@@ -4,7 +4,7 @@ var router = express.Router();
 var Blog = require('../models/Blog');
 var middleware = require("../middleware");
 
-router.get("/blogs", middleware.isLoggedin,function (req, res) {
+router.get("/blogs",function (req, res) {
     Blog.find({
     }, function (err, blog) {
         res.render("index", { blogs: blog });
@@ -13,7 +13,7 @@ router.get("/blogs", middleware.isLoggedin,function (req, res) {
 
 // purposely placing this route above the id one cuase that will get hit first
 router.get("/blogs/new", middleware.isLoggedin,function (req, res) {
-    res.render("newBlogForm");
+    res.render("newBlogForm", {message:req.flash("error")});
 })
 
 router.get("/blogs/:id", function (req, res) {
@@ -39,6 +39,7 @@ router.delete("/blogs/:id", middleware.hasBlogPermission,function (req, res) {
         if (err) {
             console.log("Error deleting");
         } else {
+            req.flash("success","successfull deletion");
             res.redirect("/blogs");
         }
     })
@@ -51,6 +52,7 @@ router.put("/blogs/:id",middleware.hasBlogPermission, function (req, res) {
             console.log("ERROR editing the blog");
         }
         else {
+            req.flash("success", "blog edit successfull");
             res.redirect("/blogs/" + id);
         }
     })

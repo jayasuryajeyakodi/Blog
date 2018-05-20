@@ -11,6 +11,7 @@ router.put("/blogs/:id/comment/:commentId", middleware.hasCommentPermission, fun
         if(err){
             console.log("error "+err)
         }
+        req.flash("success","comment edited");
         res.redirect("/blogs/"+req.params.id)
     })
 })
@@ -21,6 +22,7 @@ router.delete("/blogs/:id/comment/:commentId", middleware.hasCommentPermission, 
         if(err){
             console.log('error deleting comment'+err);
         }
+        req.flash("success","delted");
         res.redirect("back");
     })
 })   
@@ -55,9 +57,9 @@ router.put("/blogs/:id/comment",middleware.isLoggedin, function (req, res) {
                 blog.comments.push(comment);
                 blog.save();
                 console.log("updated blog with comment"+blog);
+                req.flash("success", "comment added");
                 res.redirect("/blogs/" + req.params.id);
             });
-
         }
     })
 })

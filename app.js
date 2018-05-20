@@ -8,7 +8,8 @@ var express = require('express'),
     Comment = require('./models/Comment'),
     Blog = require('./models/Blog'),
     passport = require('passport'),
-    localStrategy = require('passport-local');
+    localStrategy = require('passport-local'),
+    flash = require("connect-flash");
 
 
 
@@ -40,7 +41,7 @@ app.set("view engine", "ejs");
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-
+app.use(flash());
 
 //passport ocnfiguration
 app.use(require('express-session')({
@@ -62,8 +63,11 @@ passport.deserializeUser(User.deserializeUser());
 // to pass data to all the templates, use this method
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
+
 app.use(mainRoute);
 app.use(blogRoute);
 app.use(commentRoute);
@@ -98,6 +102,7 @@ app.post("/register", function (req, res) {
 })
 
 app.get("/login", function (req, res) {
+
     res.render("login");
 })
 
@@ -110,7 +115,8 @@ app.post("/login", passport.authenticate("local", {
 
 app.get("/logout", function (req, res) {
     req.logout();
-    res.redirect("/");
+    req.flash("success","logged out successfully");
+    res.redirect("/blogs");
 })
 
 function isLoggedin(req, res, next){
