@@ -1,0 +1,13 @@
+<% include partials/header.ejs %>
+
+    <div class="container">
+        <div class="btn-group-vertical container">
+                <a href="/note/new" class="btn btn-success">Add Note</a>
+            <% Notes.forEach(function(Note){ %>
+                <a href="/note/<%= Note._id %>" class="btn btn-primary"><%= Note.Title %></a>
+            <% }) %>
+
+        </div>
+    </div>
+
+    <% include partials/footer.ejs %>

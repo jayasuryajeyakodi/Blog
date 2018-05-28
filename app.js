@@ -9,7 +9,8 @@ var express = require('express'),
     Blog = require('./models/Blog'),
     passport = require('passport'),
     localStrategy = require('passport-local'),
-    flash = require("connect-flash");
+    flash = require("connect-flash"),
+    Note = require("./models/Note");
 
 
 
@@ -17,7 +18,8 @@ var express = require('express'),
 var mainRoute = require('./Routes/main'),
     blogRoute = require('./Routes/blog'),
     commentRoute = require('./Routes/comment'),
-    authRoute = require('./Routes/auth');
+    authRoute = require('./Routes/auth'),
+    noteRoute = require('./Routes/note');
 
 // HTML forms doesnt support PUT, so as a workaround
 // we use a module called method override, which intercepts the request and changes to a 
@@ -71,6 +73,7 @@ app.use(function(req, res, next){
 app.use(mainRoute);
 app.use(blogRoute);
 app.use(commentRoute);
+app.use(noteRoute);
 //app.use(authRoute);
 
 app.get("/register", function (req, res) {

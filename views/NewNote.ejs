@@ -1,0 +1,14 @@
+<% include partials/header.ejs %>
+    <div class="container">
+
+        <form action="/note" method="POST" class="form-group">
+            <label for="">Title</label>
+            <input type="text" name="Note[Title]" class="form-control">
+            <label for="">Content</label>
+            <textarea name="Note[Content]" id="" cols="30" rows="10" class="form-control"></textarea>
+
+            <button type="submit" class="btn btn-success">Create</button>
+        </form>
+    </div>
+
+    <% include partials/footer.ejs %>
